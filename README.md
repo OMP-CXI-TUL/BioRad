@@ -1,5 +1,5 @@
 ## BioRad SW Instalation file
-Please use tho following link for direct installation on 64bit Windows machines
+Please use the following link for direct installation on 64bit Windows machines
 
 [Windows 64bit](https://astra.nti.tul.cz/~jakub.riha/BioRad_1.0_x86_64.exe)
 
