@@ -1,3 +1,3 @@
 ## BioRad SW Instalation file
-[Windows 64bit](\\astra.cxi.tul.cz\public\jakub.riha\public\BIORAD_GUI_v2\dist\)
+[Windows 64bit](\\astra.cxi.tul.cz\public\jakub.riha\public_html\BioRad_1.0_x86_64.exe)
 
