@@ -332,7 +332,8 @@ class DataModel(BaseModel):
             self.error('Half life from isotope "'+self.isot_names[from_i]+'" to isotope "'+self.isot_names[to_i]+'" is already set.', value=self.isot_names[to_i])
             return False
          if not self.readfloat(0,1e60,main_key+[i,'half_life']): return False
-         self.isot_half_life[from_i,to_i] = self.lrvalue * self.u_time_coef
+         if self.lrvalue > 0:
+           self.isot_half_life[from_i,to_i] = self.lrvalue * self.u_time_coef
       print("Isotopes half life loaded. OK.")
       return True
 
@@ -550,5 +551,7 @@ class DataModel(BaseModel):
       if not self._load_output_params(['outputs']): return False      
       print ("Data model was created. OK.")
       return True
+
+
 
 
