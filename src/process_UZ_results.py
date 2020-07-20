@@ -1,4 +1,4 @@
-def proc_UZ_res(length, mass):
+def proc_UZ_res(length, mass, height):
     mult = 1
     depth = 0.3
     if length == 'mm':
@@ -25,17 +25,21 @@ def proc_UZ_res(length, mass):
         node_count = int(input_file.readline().rstrip())
         nodes = []
         weights = []
+        first = False
         for i in range(0, node_count):
             line = input_file.readline().rstrip().split()
             z = float(line[3])
-            if z <= depth:
+            if z >= (height-depth):
+                if not first:
+                    first = True
+                    nodes.append(id_prev)
+                    weights.append((z-(height-depth))/(z-z_prev))
                 nodes.append(int(line[0]))
                 weights.append(1)
-            else:
-                nodes.append(int(line[0]))
-                weights.append((depth-z_prev)/(z-z_prev))
-                break
             z_prev = z
+            id_prev = int(line[0])
+        print(weights)
+        print(nodes)
     output_file = open('../inputs/unsaturated_concentrations.csv', 'w')
     output_file.write('time')
     with open('../outputs/temp.txt', 'r') as tracer_file:
@@ -61,11 +65,11 @@ def proc_UZ_res(length, mass):
                         output_file.write(str(time))
                     conc = 0
                     for i in range(0, len(nodes)-1):
-                        conc += float(block[9+i].split()[1])
-                    if weights[-1] > 0:
-                        conc += float(block[9+len(nodes)-1].split()[1]) + \
-                                (float(block[9+len(nodes)].split()[1])
-                                 -float(block[9+len(nodes)-1].split()[1]))*weights[-1]
+                        conc += float(block[-(i+1)].split()[1])
+                    if weights[0] > 0:
+                        conc += float(block[-len(nodes)+1].split()[1]) + \
+                                (float(block[-len(nodes)].split()[1])
+                                 -float(block[-len(nodes)+1].split()[1]))*weights[0]
                         conc = conc/len(nodes)
                     else:
                         conc = conc/(len(nodes)-1)
@@ -77,4 +81,4 @@ def proc_UZ_res(length, mass):
                 block.append(line.rstrip())
 
 
-#proc_UZ_res('m', 'g')
+#proc_UZ_res('m', 'g', 10)

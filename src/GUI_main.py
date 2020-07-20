@@ -899,7 +899,7 @@ def call_biorad_1():
         label_text.set('Computing flow and transport in the unsaturated zone.\nThis may take a while, please wait...')
         main.focus_force()
         execute_Biorad1()
-        proc_UZ_res(length_c.get(), mass_c.get())
+        proc_UZ_res(length_c.get(), mass_c.get(), h)
         b1.destroy()
         label_text.set('Unsaturated zone simulation complete.')
 
