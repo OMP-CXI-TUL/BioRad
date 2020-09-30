@@ -18,6 +18,7 @@ SetCompressor /SOLID lzma
 !define SRC_DIR "${GIT_DIR}\src"
 !define BUILD_DIR "${GIT_DIR}\build"
 !define DATA_DIR "${GIT_DIR}\database"
+!define DOC_DIR "${GIT_DIR}\doc"
 
 !define PYTHON_MAJOR   "3"
 !define PYTHON_MINOR   "8"
@@ -33,10 +34,10 @@ SetCompressor /SOLID lzma
 !include LogicLib.nsh
 
 
-Name "BioRad 1.0"
-Caption "BioRad 1.0 Setup"
+Name "BioRad 1.0.3"
+Caption "BioRad 1.0.3 Setup"
 #InstallDir "$PROGRAMFILES\GeoMop"
-OutFile "${GIT_DIR}\dist\BioRad_1.0_x86_64.exe"
+OutFile "${GIT_DIR}\dist\BioRad_1.0.3_x86_64.exe"
 
 # Registry key to check for directory (so if you install again, it will 
 # overwrite the old one automatically)
@@ -126,6 +127,7 @@ Section "Runtime Environment" SecRuntime
   # Copy the src folder.
   File /r "${SRC_DIR}"
   File /r "${DATA_DIR}"
+  File /r "${DOC_DIR}"
 
   # Copy LICENSE, CHANGELOG, VERSION.
   File "${GIT_DIR}\VERSION"
@@ -182,6 +184,7 @@ Section "-Batch files" SecBatchFiles
     FileWrite $0 "@echo off$\r$\n"
     FileWrite $0 'set "PYTHONPATH=$INSTDIR"$\r$\n'
     FileWrite $0 '"$PYTHON_SCRIPTS\python.exe" "$INSTDIR\src\GUI_main.py" %*$\r$\n'
+	FileWrite $0 "pause$\r$\n"
     FileClose $0
 	
   FileOpen $0 "pythonw.bat" w
