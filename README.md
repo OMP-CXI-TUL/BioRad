@@ -9,3 +9,6 @@ In case you use other operating system than 64bit Windows or in case the install
 Please refer to the user manual for further instructions.
 
 [source files](https://astra.nti.tul.cz/~jakub.riha/BIORAD_GUI_source.zip)
+
+## Acknowledgment
+Created with a support from the Technology Agency of the Czech Republic within the EPSILON program through the project TH03030274 Software for evaluation of radionuclide transport on the geosphere/biosphere interface and its impact on man.
