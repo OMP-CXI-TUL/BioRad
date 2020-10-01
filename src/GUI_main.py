@@ -53,13 +53,17 @@ def what_up():
     about_w = tk.Toplevel()
     about_w.title('About BIORAD')
     about_label_text = tk.StringVar()
-    about_label_text.set('Copyright (C) 2020 Technical University of Liberec. All rights reserved.\n\nThis program is '
+    about_label_text.set('BioRad version 1.0.4\n\nDatabase version 22\n\nCopyright (C) 2020 Technical University of '
+                         'Liberec. All rights reserved.\n\nThis program is '
                          'free software; you can redistribute it and/or modify it under the terms of the \nGNU General '
                          'Public License version 3 as published by the Free Software Foundation. \n'
                          '(http://www.gnu.org/licenses/gpl-3.0.en.html)\n\nThis program is distributed in the hope that'
                          ' it will be useful, but WITHOUT ANY WARRANTY; \nwithout even the implied warranty of '
                          'MERCHANTABILITY or FITNESS FOR A PARTICULAR \nPURPOSE. See the GNU General '
-                         'Public License for more details.\n\n')
+                         'Public License for more details.\n\nCreated with a support from the Technology Agency of the '
+                         'Czech Republic \nwithin the EPSILON program through the project TH03030274 \nSoftware for '
+                         'evaluation of radionuclide transport on the geosphere/biosphere '
+                         'interface and its impact on man.\n\n')
     tk.Label(about_w, textvariable=about_label_text).pack()
 
     def quit_this():
@@ -1162,23 +1166,24 @@ def call_biorad_2():
                 dictfile = {'msh_el': msh_el}
                 with open((base_path / "../inputs/Biosphere_configuration_file.yaml").resolve(), 'a') as yaml_file:
                     yaml.dump(dictfile, yaml_file, Dumper=MyDumper, default_flow_style=False, sort_keys=False)
-            with open((base_path / "../inputs/unsaturated_concentrations.csv").resolve(), 'r') as unsaturated_results:
-                lines = []
-                times_UZ = []
-                concs_UZ = []
-                header = unsaturated_results.readline().rstrip().split(';')
-                if len(header) != len(fields) + 1:
-                    print('WARNING! Nuclide counts do not match"')
-                for line in unsaturated_results:
-                    line = line.rstrip()
-                    lines.append(line)
-                for item in lines:
-                    item = item.split(';')
-                    item = [float(i) for i in item]
-                    times_UZ.append(item[0])
-                    conc_list = item[1:]
-                    conc_list = [x * multi for x in conc_list]
-                    concs_UZ.append(conc_list)
+            if scenario_var.get() == 1:
+                with open((base_path / "../inputs/unsaturated_concentrations.csv").resolve(), 'r') as unsaturated_results:
+                    lines = []
+                    times_UZ = []
+                    concs_UZ = []
+                    header = unsaturated_results.readline().rstrip().split(';')
+                    if len(header) != len(fields) + 1:
+                        print('WARNING! Nuclide counts do not match"')
+                    for line in unsaturated_results:
+                        line = line.rstrip()
+                        lines.append(line)
+                    for item in lines:
+                        item = item.split(';')
+                        item = [float(i) for i in item]
+                        times_UZ.append(item[0])
+                        conc_list = item[1:]
+                        conc_list = [x * multi for x in conc_list]
+                        concs_UZ.append(conc_list)
 
             dictfile = {'baskets': [bb]}
             with open((base_path / "../inputs/Biosphere_configuration_file.yaml").resolve(), 'a') as yaml_file:
