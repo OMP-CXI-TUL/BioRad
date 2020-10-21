@@ -3,7 +3,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter import ttk
 import yaml
 import sqlite3 as sq
-import biorad2_library_v0072 as brl
+import biorad2_library_v0074 as brl
 import numpy as np
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
